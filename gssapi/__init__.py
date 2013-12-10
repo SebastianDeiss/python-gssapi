@@ -1,8 +1,5 @@
 from __future__ import absolute_import
 
-from .creds import BaseCredential, Credential
-from .ctx import Context, InitContext, AcceptContext
-from .error import GSSException, GSSCException
 from .headers.gssapi_h import (
     GSS_C_DELEG_FLAG as C_DELEG_FLAG,
     GSS_C_MUTUAL_FLAG as C_MUTUAL_FLAG,
@@ -16,6 +13,7 @@ from .headers.gssapi_h import (
     GSS_C_BOTH as C_BOTH,
     GSS_C_INITIATE as C_INITIATE,
     GSS_C_ACCEPT as C_ACCEPT,
+    GSS_C_INDEFINITE as C_INDEFINITE,
     GSS_C_NT_USER_NAME as C_NT_USER_NAME,
     GSS_C_NT_MACHINE_UID_NAME as C_NT_MACHINE_UID_NAME,
     GSS_C_NT_STRING_UID_NAME as C_NT_STRING_UID_NAME,
@@ -56,5 +54,8 @@ try:
     from .headers.gssapi_h import GSS_C_DELEG_POLICY_FLAG as C_DELEG_POLICY_FLAG
 except ImportError:
     pass
-from .names import Name, BaseName, MechName
+from .creds import Credential
+from .ctx import Context, InitContext, AcceptContext
+from .error import GSSException, GSSCException
+from .names import Name, MechName
 from .oids import OID, OIDSet, MutableOIDSet, get_all_mechs
