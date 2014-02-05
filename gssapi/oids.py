@@ -1,8 +1,8 @@
-from __future__ import absolute_import
+
 
 import re
 from ctypes import byref, c_int, string_at, cast
-
+import struct
 from pyasn1.codec.ber import decoder
 
 from .headers.gssapi_h import (
@@ -76,9 +76,13 @@ class OID(object):
                 input_string = ".".join(input_string[1:-1].split())
             else:
                 raise ValueError(input_string)
+        print(input_string)
         for mech in get_all_mechs():
-            if input_string == str(mech):
+            print(mech.__str__())
+            if str(mech).find(input_string):
                 return mech
+            #if input_string == str(mech):
+                #return mech
         raise KeyError("Unknown mechanism: {0}".format(input_string))
 
     def __repr__(self):
@@ -86,9 +90,10 @@ class OID(object):
 
     def __str__(self):
         tag = b'\x06'
-        length = chr(self._oid.length)
+        #length = chr(self._oid.length)
+        length = struct.pack('B', self._oid.length)
         value = string_at(self._oid.elements, self._oid.length)
-        return str(decoder.decode(tag + length + value)[0])
+        return str(decoder.decode(tag + length + value)[0:1])
 
 
 class OIDSet(object):

@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 
 import numbers
 
@@ -33,7 +33,7 @@ class _NameMeta(type):
             return super(_NameMeta, cls).__call__(*args, **kwargs)
 
 
-class Name(object):
+class Name(object, metaclass=_NameMeta):
     """
     Used to construct GSSAPI internal-form names from a string representation (or numeric UID on
     POSIX platforms).
@@ -44,7 +44,6 @@ class Name(object):
         :const:`gssapi.C_NT_USER_NAME` or :const:`gssapi.C_NT_HOSTBASED_SERVICE`.
     :type name_type: `gssapi.C_NT_*` constant or :class:`~gssapi.oids.OID`
     """
-    __metaclass__ = _NameMeta
 
     def __init__(self, name, name_type=GSS_C_NO_OID):
         super(Name, self).__init__()
@@ -61,9 +60,9 @@ class Name(object):
         minor_status = OM_uint32()
 
         name_buffer = gss_buffer_desc()
-        if isinstance(name, basestring):
+        if isinstance(name, str):
             name_buffer.length = len(name)
-            name_buffer.value = cast(c_char_p(name), c_void_p)
+            name_buffer.value = cast(c_char_p(str.encode(name)), c_void_p)
         elif isinstance(name, numbers.Integral):
             c_name = uid_t(name)
             name_buffer.length = sizeof(c_name)

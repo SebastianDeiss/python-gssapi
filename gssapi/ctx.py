@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 
 from ctypes import cast, byref, c_char_p, c_void_p, string_at, c_int
 import functools
