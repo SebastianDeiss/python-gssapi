@@ -76,9 +76,7 @@ class OID(object):
                 input_string = ".".join(input_string[1:-1].split())
             else:
                 raise ValueError(input_string)
-        print(input_string)
         for mech in get_all_mechs():
-            print(mech.__str__())
             if str(mech).find(input_string):
                 return mech
             #if input_string == str(mech):
