@@ -33,7 +33,7 @@ class _NameMeta(type):
             return super(_NameMeta, cls).__call__(*args, **kwargs)
 
 
-class Name(object, metaclass=_NameMeta):
+class Name(object):
     """
     Used to construct GSSAPI internal-form names from a string representation (or numeric UID on
     POSIX platforms).
@@ -85,8 +85,7 @@ class Name(object, metaclass=_NameMeta):
             raise GSSCException(retval, minor_status)
 
     def __str__(self):
-        return self._display()
-
+        return self._display().decode('utf-8')
     @property
     def type(self):
         """

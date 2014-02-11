@@ -1,6 +1,7 @@
 
 
 import re
+import sys
 from ctypes import byref, c_int, string_at, cast
 import struct
 from pyasn1.codec.ber import decoder
@@ -54,7 +55,10 @@ class OID(object):
     def __hash__(self):
         hsh = 31
         for c in string_at(self._oid.elements, self._oid.length):
-            hsh = 101 * hsh + ord(c)
+            if sys.version_info >= (3,):
+                hsh = 101 * hsh + c
+            else:
+                hsh = 101 * hsh + ord(c)
         return hsh
 
     @staticmethod
@@ -77,10 +81,8 @@ class OID(object):
             else:
                 raise ValueError(input_string)
         for mech in get_all_mechs():
-            if str(mech).find(input_string):
+            if input_string == str(mech):
                 return mech
-            #if input_string == str(mech):
-                #return mech
         raise KeyError("Unknown mechanism: {0}".format(input_string))
 
     def __repr__(self):
@@ -88,10 +90,9 @@ class OID(object):
 
     def __str__(self):
         tag = b'\x06'
-        #length = chr(self._oid.length)
         length = struct.pack('B', self._oid.length)
         value = string_at(self._oid.elements, self._oid.length)
-        return str(decoder.decode(tag + length + value)[0:1])
+        return str(decoder.decode(tag + length + value)[0])
 
 
 class OIDSet(object):

@@ -75,7 +75,7 @@ def status_list(maj_status, min_status, status_type=GSS_C_GSS_CODE, mech_type=GS
 
 
 def _status_to_str(maj_status, min_status, mech_type=GSS_C_NO_OID):
-    return b' '.join(status_list(maj_status, min_status, mech_type=mech_type))
+    return ' '.join(status_list(maj_status, min_status, mech_type=mech_type))
 
 
 class GSSException(Exception):
