@@ -55,7 +55,7 @@ def status_list(maj_status, min_status, status_type=GSS_C_GSS_CODE, mech_type=GS
                 byref(status_buf)
             )
             if retval == GSS_S_COMPLETE:
-                statuses.append("({0}) {1}.".format(maj_status, string_at(status_buf.value, status_buf.length)))
+                statuses.append("({0}) {1}.".format(maj_status, string_at(status_buf.value, status_buf.length).decode()))
             elif retval == GSS_S_BAD_MECH:
                 statuses.append("Unsupported mechanism type passed to GSSException")
             elif retval == GSS_S_BAD_STATUS:
