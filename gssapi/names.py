@@ -85,7 +85,7 @@ class Name(object):
             raise GSSCException(retval, minor_status)
 
     def __str__(self):
-        return self._display().decode('utf-8')
+        return self._display().decode()
     @property
     def type(self):
         """
