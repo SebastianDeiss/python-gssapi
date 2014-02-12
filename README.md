@@ -7,10 +7,10 @@ This project is licensed under the terms of the MIT license (see LICENSE.txt).
 
 Python3 Support
 ---------------
-python-gssapi is able to run on Python3, but to install it you can't use the setup script yet,
+python-gssapi is able to run on Python3, but to install it you can't use the setup script right now,
 because the ctypesgen module used to build the gssapi_h module is not able to run on Python3 and it
 generates just Python2 code.
-An issue for Python3 support has been already opend on Google Code.
+An issue about Python3 support for ctypesgen has been opened on Google Code.
 So to install python-gssapi on Python3 use the following stetps:
 - Build python-gssapi on Python2. Do not install it, just build it.
 - Look for the generated gssapi_h module in your build directory and use 2to3 to port it to py3
