@@ -1,4 +1,4 @@
-
+from __future__ import absolute_import
 
 from .headers.gssapi_h import (
     GSS_C_DELEG_FLAG as C_DELEG_FLAG,

@@ -1,4 +1,4 @@
-
+from __future__ import absolute_import
 
 from ctypes import byref, string_at, cast
 
